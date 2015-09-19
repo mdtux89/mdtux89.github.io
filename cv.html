@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Resume
-before-pubs:
+ed:
   -
-    heading: Education
+    heading: <b>Education</b>
     items:
       -
         title: MSc
@@ -12,19 +12,19 @@ before-pubs:
       -
         title: M.S
         year: 2014
-        detail: Università degli Studi di Genova. Dissertation&#58; <i>Cost Effective Open Source Platform for Empirical Robotics an AI
+        detail: Università degli Studi di Genova. Dissertation&#58; <i>Cost Effective Open Source Platform for Empirical Robotics and AI</i>
       -
         title: B.S
         year: 2011
         detail: Università degli Studi di Genova
+work:
   -
-    heading: Working experience
+    heading: <b>Working experience</b>
     items:
       -
         title: Research Collaborator
         year: 2014
         detail: AIMS Lab, Università degli Studi di Genova
 ---
-<div>
-{% include lists.html categories=page.before-pubs %}
-</div>
+{% include lists.html categories=page.ed %}
+{% include lists.html categories=page.work %}
