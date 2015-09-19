@@ -1,0 +1,9 @@
+---
+layout: default
+title: Publications
+---
+<div>
+{% for post in site.papers %}
+  {% include paper.html paper=post %}
+{% endfor %}
+</div>
