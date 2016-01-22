@@ -6,12 +6,12 @@ title: Torch7. Hello World, Neural Networks!
 Preamble
 ------------
 
-As you probably know, there are many Neural Networks libraries out there. When I started working with NNs, I first *learned* (for which I mean I skimmed through the tutorial and ran the getting-started examples) Theano/Lasagne and then, as I wanted something more high-level, Pylearn2. The problem with Pylearn2 is that there are currently no active developers on the project. Moreover, it seemed very obscure to me how to implement recurrent architectures such as RNNs and LSTMs, which I needed. So I decided to migrate to Torch7. I've always loved the "Hello World" approach when learning a new programming language so that is the approach I'm going to follow: think of this post as a quick way to getting started with it. If you are looking for a complete and structured study of all Torch features and peculiarities, this is definitely not what you are looking for and you should jump straight to [learn it properly](#learn-torch-properly) (or read any of the other tutorials already available on the web).	
+As you probably know, there are many Neural Network libraries out there. When I started working with NNs, I first *learned* (by which I mean I skimmed through the tutorial and ran the getting-started examples) Theano/Lasagne and then, as I wanted something more high-level, Pylearn2. The problem with Pylearn2 is that there are currently no active developers on the project. Moreover, it seemed very obscure to me how to implement recurrent architectures such as RNNs and LSTMs, which I needed. So I decided to migrate to Torch7. I've always loved the "Hello World" approach when learning a new programming language so that is the approach I'm going to follow: think of this post as a quick way to getting started with it. If you are looking for a complete and structured study of all Torch features and peculiarities, this is definitely not what you are looking for and you should jump straight to [learn it properly](#learn-torch-properly) (or read any of the other tutorials already available on the web).	
 
 Prerequisites
 ------------
 * It's not a good idea to start using NNs if you don't know what they are: it is quite hard to understand what the hell they are learning even when you know the theory, so learn that first! 
-* You need to be willing to give up Python and use Lua (although there exist wrappers for using Lua from Python and viceversa). Don't be scared, Lua is very easy.
+* You need to be willing to give up Python and use Lua (although wrappers exist for using Lua from Python and vice versa). Don't be scared, Lua is very easy.
 
 Lua
 ------------
@@ -90,7 +90,7 @@ print(tab:sum()) -- displays 8 (the colon is used for calling methods)
 I/O on file:
 {% highlight lua %}
 file = io.open("test.txt", "w")
-for line in io.lines("~/file.txt") do
+for line in io.lines("~/input.txt") do
   file:write(line + "\n") -- write on file
 end
 
@@ -113,7 +113,7 @@ cd ~/torch
 source ~/.bashrc # source ~/.profile for Macs
 {% endhighlight %}
 
-If you now type: {% highlight bash %} th {% endhighlight %} you should seee the Torch interpreter, which understand only Lua code. You can exit it with Ctrl+C.
+If you now type: {% highlight bash %} th {% endhighlight %} you should see the Torch interpreter, which understands only Lua code. You can exit with Ctrl+C.
 
 If you want to run a Lua/Torch script, just type: {% highlight bash %} th name-of-your-script.lua {% endhighlight %}
 
@@ -127,9 +127,9 @@ The one Torch feature you absolutely need to know is the `torch.Tensor` data str
 a = torch.Tensor(1) -- a scalar
 b = torch.Tensor(2,1) -- a vector (2 rows, 1 column)
 c = torch.Tensor(2,2) -- a 2D vector (2 rows, 2 columns)
-[[ Note that 'a','b' and 'c' contain garbage value at this moment ]]
+[[ Note that 'a','b' and 'c' contain garbage values at this moment ]]
 
-a[1] = 10 -- now 'a' is tensor containing an actual value, i.e. 10.
+a[1] = 10 -- now 'a' is a tensor containing an actual value, i.e. 10.
 d = torch.rand(2,2) -- this is a 2D vector (2x2) with random values.
 e = d:t() -- 'e' is the transpose of 'd' 
 {% endhighlight %}
@@ -137,14 +137,14 @@ e = d:t() -- 'e' is the transpose of 'd'
 The nn package
 ------------
 
-As only the most clever will have deduced, `nn` is the Neural Networks package. So what do we need to train and test a NN?
+`nn` is the Neural Networks package. So what do we need to train and test a NN?
 
-* **Model**. Do we want a feedforward network, a convolutional network, a recurrent network, a recursive one? How many layers? How many units for each layer? Which activation function we want to use on each layer? Do we want to use dropouts to reduce overfitting?
+* **Model**. Do we want a feedforward network, a convolutional network, a recurrent network, a recursive one? How many layers? How many units for each layer? Which activation function do we want to use on each layer? Do we want to use dropouts to reduce overfitting?
 * **Training**. We want two things: an algorithm (e.g., Stochastic Gradient Descent) and a loss function (called *Criterion* in Torch) to optimize. 
-* **Data**. This is the most important part: no data, no party. 
+* **Data**. This is the most important part: no data, no fun. 
 * **Prediction and Evaluation**. Finally, we need to be able to use the trained model to make predictions and assess its performance on a test dataset.
 
-Before starting, a small note on passing hyperparameters. Hyperparameters tuning (such as the choice of the number of layers, units, so on and so forth) is very important when running experiments with NNs so we don't want to change the script every time we change one. We can specify them as command line options (with default values, of course):
+Before starting, a small note on passing hyperparameters. Hyperparameter tuning (such as the choice of the number of layers, units, so on and so forth) is very important when running experiments with NNs so we don't want to change the script every time we change one. We can specify them as command line options (with default values, of course):
 {% highlight lua %}
 cmd = torch.CmdLine()
 cmd:text()
@@ -164,7 +164,7 @@ require 'nn'
 mlp = nn.Sequential()
 {% endhighlight %}
 
-Now, let's say we need two hidden feedforward layers. The functionality of a simple feedforward layer is given by the module `nn.Linear`, which simply apply a linear transformation to the input data. Neural networks are good at learning non-linear representation of the input data. Therefore, we usually want to apply some sort of non-linearity at each layer. To accomplish this, we add a transfer function (such as `nn.Tanh`, `nn.Sigmoid`, `nn.ReLU`, etc..) to the model. Let's assume we want to use tanh as the transfer function, we have a 10-dimensional input and we want 10 units in each hidden layer (as specified in the default values for the command line options defined earlier):
+Now, let's say we need two hidden feedforward layers. The functionality of a simple feedforward layer is given by the module `nn.Linear`, which simply applies a linear transformation to the input data. Neural networks are good at learning non-linear representation of the input data. Therefore, we usually want to apply some sort of non-linearity at each layer. To accomplish this, we add a transfer function (such as `nn.Tanh`, `nn.Sigmoid`, `nn.ReLU`, etc..) to the model. Let's assume we want to use tanh as the transfer function, we have a 10-dimensional input and we want 10 units in each hidden layer (as specified in the default values for the command line options defined earlier):
 
 {% highlight lua %}
 inputSize = 10
@@ -257,7 +257,7 @@ end
 dataset = loadData("trainfile.csv")
 {% endhighlight %}
 
-Then we can use `nn.StochasticGradient:train()` to start the actual training:
+Then `nn.StochasticGradient:train()` can be used to start the actual training:
 
 {% highlight lua %}
 trainer:train(dataset)
@@ -265,7 +265,7 @@ trainer:train(dataset)
 
 ### Prediction and evaluation ###
 
-Once the network is trained, we can use to classify new data:
+Once the network is trained, it can be used to classify new data:
 {% highlight lua %}
 x = torch.randn(10)
 y = mlp:forward(x)
@@ -315,12 +315,12 @@ print("Weights of saved model:")
 print(mlp2:get(1).weight) -- this will print the exact same matrix
 {% endhighlight %}
 
-That's it. If we need to write fancy networks or we want to have built-in features like monitoring, early stopping, etc, `nn` is not going to be enough. `nngraph` allows you to define any DAG-like NNs so that you can have, for example, a network with multiple input or multiple output, which is very handy to define recurrent structures. `dp` is a deep learning library that enables you to use many algorithms and techniques commonly used to train deep networks.
+That's it. If we need to write fancy networks or we want to have built-in features like monitoring, early stopping, etc, `nn` is not going to be enough. `nngraph` allows you to define any DAG-like NNs so that you can have, for example, a network with multiple inputs or multiple outputs, which is very handy to define recurrent structures. `dp` is a deep learning library that enables you to use many algorithms and techniques commonly used to train deep networks.
 
 Learn Torch properly
 ------------
 
-First thing to learn properly is Lua. To my experience (which is pretty limited, to be honest) you don't need to learn many fancy features. The basic syntax, tables, indexing, scope and functions is all that I had needed so far. [This website](http://tylerneylon.com/a/learn-lua/) provides just that, plus some extra stuff. If you are eager to learn more, the website has a link to a 1-hour video lecture.
+First thing is to learn properly Lua. In my experience (which is pretty limited, to be honest) you don't need to learn many fancy features. The basic syntax, tables, indexing, scope and functions is all that I needed so far. [This website](http://tylerneylon.com/a/learn-lua/) provides just that, plus some extra stuff. If you are eager to learn more, the website has a link to a 1-hour video lecture.
 
 You can then start playing around with the Torch interpreter *th* and the `torch` package for Lua scripts. Read [this two-page tutorial](http://torch.ch/docs/getting-started.html), which will introduce you to the torch Tensor data structure and the *optim* package.
 
