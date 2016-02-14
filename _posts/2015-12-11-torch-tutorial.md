@@ -134,7 +134,7 @@ d = torch.rand(2,2) -- this is a 2D vector (2x2) with random values.
 e = d:t() -- 'e' is the transpose of 'd' 
 {% endhighlight %}
 
-The nn package
+The `nn` package
 ------------
 
 `nn` is the Neural Networks package. So what do we need to train and test a NN?
@@ -316,6 +316,79 @@ print(mlp2:get(1).weight) -- this will print the exact same matrix
 {% endhighlight %}
 
 That's it. If we need to write fancy networks or we want to have built-in features like monitoring, early stopping, etc, `nn` is not going to be enough. `nngraph` allows you to define any DAG-like NNs so that you can have, for example, a network with multiple inputs or multiple outputs, which is very handy to define recurrent structures. `dp` is a deep learning library that enables you to use many algorithms and techniques commonly used to train deep networks.
+
+The dp package
+------------
+`dp` is a deep learning library that extends `nn` with many useful features. The package includes common datasets for computer vision and Natural Language Processing (NLP) and provides an elegant way to create new ones and load them. Moreover, the experiment-based framework, inspired by PyLearn2, allows you to easily include techniques such as learning rate decaying, Early Stopping on a development set as well as reporting accuracies and confusion matrices on training, development and testing sets. As an example, see [this experiment script](https://github.com/nicholas-leonard/dp/blob/master/examples/languagemodel.lua); chances are that you can copy and paste most of it =).
+
+Word embeddings
+------------
+In the field of NLP, word embeddings are one of the most helpful techniques because they allow us to create distributed representation for words which have been shown to capture syntactic and semantic properties. Tools such as [word2vec](https://code.google.com/archive/p/word2vec/) and [GloVe](http://nlp.stanford.edu/projects/glove/) can be used to generate word embeddings on large Language Modelling corpora that can be then directly used to represent the words in your neural networks. For instance, if your input is a sequence of words, you can replace each word with its *pretrained* embedding vector and then concatenate all vectors, hence generating your numeric input layer, which you can then use as discussed above. To do so, you will need a script that generates the vector given the sequence of input words: my solution to this is to use a Python script, which is straightforward to write and I'm therefore not showing here (the Lua solution would probably be much harder to write, at least for me =)).
+
+An alternative is to jointly train your embeddings with the rest of your NN. In this case, the input layer will be composed of a sequence of indices, representing the index of each word in a predefined vocabulary. Then, the second layer, called embedding layer or lookup table, will be responsible for extracting the embedding vector corresponding to that index. The lookup table is a weight matrix, trained similarly to the weight matrices of the other NN layers, where the i-th row contains the embedding for the i-th word in the vocabulary. If we initialize this matrix randomly as we do for the other matrices, at the beginning this embeddings are not going to be helpful but once the training starts, backpropagation will start updating the matrix, which eventually will be able to generate embeddings that contains syntactic and semantic information. In Torch:
+
+{% highlight lua %}
+require 'nn';
+require 'dp'; --necessary for nn.Collapse
+
+vocabularySize = 10000
+embeddingSize = 100 -- a commmon choice for word embeddings
+
+model = nn.Sequential()
+model:add(nn.LookupTable(vocabularySize, embeddingSize))
+model:add(nn.Collapse(2)) -- to concatenate the embeddings of all input words
+-- then you can add the rest of your network..
+{% endhighlight %}
+
+Pretraining is a common technique which simply uses word embeddings trained beforehand (e.g., with word2vec or GloVe) to initialize the embedding layer. This techniques is very helpful because it drastically reduces the number of epochs required to train your network. You can implement it in Torch as follows:
+
+{% highlight lua %}
+model = nn.Sequential()
+emb = nn.LookupTable(vocabularySize, embeddingSize))
+i = 1
+for line in io.lines("pretrained.txt") do
+  vals = line:splitAtCommas()
+  emb.weight[i] = torch.Tensor(vals) -- set the pretrained values in the matrix
+  i = i + 1
+end
+model:add(emb)
+model:add(nn.Collapse(2))
+{% endhighlight %}
+
+The nngraph package
+------------
+`nngraph` is an extension to `nn` that allows you to write any kind of DAG (Directed Acyclic Graph) neural network architecture. In practice, this is used when we want to create a network which takes multiple input and/or that outputs multiple output (e.g., an [LSTM](https://apaszke.github.io/lstm-explained.html)). Technically, `nn` provides modules to do so but writing such architectures as a graph rather than in a sequential order is much more convenient and flexible. 
+
+Let's redefine the feed-forward NN defined earlier with `nngraph`. First, let's define the input (one or more):
+
+{% highlight lua %}
+require 'nngraph'
+
+inputs = {}
+table.insert(inputs, nn.Identity()())
+input = inputs[1]
+{% endhighlight %}
+
+We then construct the network:
+
+{% highlight lua %}
+lin1 = nn.Linear(inputSize, hiddenLayer1Size)(input)
+act1 = nn.Tanh()(lin1)
+lin2 = nn.Linear(hiddenLayer1Size, hiddenLayer2Size)(act1)
+act2 = nn.Tanh()(lin2)
+
+out = nn.Linear(hiddenLayer2Size, nclasses)(act2)
+softmax = nn.LogSoftMax()(out)
+{% endhighlight %}
+
+Finally, we define the output (one or more) and build the `nn.GModule` object that can be used as a traditional `nn` container:
+
+{% highlight lua %}
+outputs = {}
+table.insert(outputs, softmax)
+
+mlp = nn.gModule(inputs, outputs)
+{% endhighlight %}
 
 Learn Torch properly
 ------------
