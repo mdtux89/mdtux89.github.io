@@ -315,7 +315,7 @@ print("Weights of saved model:")
 print(mlp2:get(1).weight) -- this will print the exact same matrix
 {% endhighlight %}
 
-That's it. If we need to write fancy networks or we want to have built-in features like monitoring, early stopping, etc, `nn` is not going to be enough. `nngraph` allows you to define any DAG-like NNs so that you can have, for example, a network with multiple inputs or multiple outputs, which is very handy to define recurrent structures. `dp` is a deep learning library that enables you to use many algorithms and techniques commonly used to train deep networks.
+<!-- That's it. If we need to write fancy networks or we want to have built-in features like monitoring, early stopping, etc, `nn` is not going to be enough. `nngraph` allows you to define any DAG-like NNs so that you can have, for example, a network with multiple inputs or multiple outputs, which is very handy to define recurrent structures. `dp` is a deep learning library that enables you to use many algorithms and techniques commonly used to train deep networks. -->
 
 The dp package
 ------------
