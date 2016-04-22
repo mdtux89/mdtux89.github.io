@@ -403,3 +403,7 @@ Up to this point, no NNs are involved. To do NN stuff, go [to the Torch wiki](ht
 Final note
 ------------
 This tutorial may contain (actually, it's quite likely to contain) a large number of mistakes of all kinds. If you notice some of them, please let me know. Any suggestion or feeedback is welcome. The code shown in this post was tested on a Raspberry Pi running Rasbpian (because why not). Thanks for reading!
+
+Acknowledgments
+------------ 
+Thanks to Thomas for spotting a mistake in the post!
