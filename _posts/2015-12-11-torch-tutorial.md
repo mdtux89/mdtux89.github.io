@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Torch7. Hello World, Neural Networks!
+comments: True
 ---
 
 Preamble
@@ -215,7 +216,7 @@ out = mlp:forward(torch.randn(1,10))
 print(out)
 {% endhighlight %}
 
-The output must be a 1x2 tensor, where `out[1][i]` is the probability the input (randomly generated in this example) belongs to class `i`.
+The output must be a 1x2 tensor, where `out[1][i]` is the log probability the input (randomly generated in this example) belongs to class `i`.
 
 ### Training ###
 
@@ -269,7 +270,7 @@ Once the network is trained, it can be used to classify new data:
 {% highlight lua %}
 x = torch.randn(10)
 y = mlp:forward(x)
-print(y) -- returns the probability of each class
+print(y) -- returns the log probability of each class
 {% endhighlight %}
 
 Now that we know how to use the classifier, we can compute its accuracy:
