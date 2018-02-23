@@ -3,9 +3,13 @@ layout: default
 title: Publications
 ---
 
-- Damonte, Marco, Shay B. Cohen, and Giorgio Satta. "An incremental parser for abstract meaning representation.", Proceedings of EACL, 2017. [pdf]({{ site.url }}/assets/eacl2017.pdf), [slides](/assets/eacl2017_slides.pdf)
+- Marco Damonte and Shay B. Cohen, "Cross-lingual Abstract Meaning Representation Parsing", To appear at NAACL 2018, [pdf]({{ site.url }}/assets/naaclhlt2018-cross.pdf).
 
-- Damonte, Marco, and Shay B. Cohen. "Cross-lingual Abstract Meaning Representation Parsing." arXiv preprint arXiv:1704.04539 (2017).
+- Issa Fuad, Marco Damonte, Shay B. Cohen, Xiaohui Yan and Yi Chang. "Abstract Meaning Representation for Paraphrase Detection.". To appear at NAACL 2018, [pdf]({{ site.url }}/assets/naacl18paraphrase.pdf).
+
+- Marco Damonte, Shay B. Cohen, and Giorgio Satta, "An incremental parser for abstract meaning representation", Proceedings of EACL, 2017, [pdf]({{ site.url }}/assets/eacl2017.pdf), [slides](/assets/eacl2017_slides.pdf).
+
+- Ben Krause, Marco Damonte, Mihai Dobre, Daniel Duma, Joachim Fainberg, Federico Fancellu, Emmanuel Kahembwe, Jianpeng Cheng and Bonnie Webber, "Edina: Building an Open Domain Socialbot with Self-dialogues", arXiv preprint arXiv:1709.09816.
 
 - Liepins, Renars, et al. "The SUMMA Platform Prototype.", Proceedings of EACL, 2017.
 
