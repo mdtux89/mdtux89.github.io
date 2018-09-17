@@ -3,9 +3,9 @@ layout: default
 title: Publications
 ---
 
-- Marco Damonte and Shay B. Cohen, "Cross-lingual Abstract Meaning Representation Parsing", To appear at NAACL 2018, [pdf]({{ site.url }}/assets/naaclhlt2018-cross.pdf).
+- Marco Damonte and Shay B. Cohen, "Cross-lingual Abstract Meaning Representation Parsing", Proceedings of NAACL 2018, [pdf]({{ site.url }}/assets/naaclhlt2018-cross.pdf).
 
-- Issa Fuad, Marco Damonte, Shay B. Cohen, Xiaohui Yan and Yi Chang. "Abstract Meaning Representation for Paraphrase Detection.". To appear at NAACL 2018, [pdf]({{ site.url }}/assets/naacl18paraphrase.pdf).
+- Issa Fuad, Marco Damonte, Shay B. Cohen, Xiaohui Yan and Yi Chang. "Abstract Meaning Representation for Paraphrase Detection.". Proceedings of NAACL 2018, [pdf]({{ site.url }}/assets/naacl18paraphrase.pdf).
 
 - Marco Damonte, Shay B. Cohen, and Giorgio Satta, "An incremental parser for abstract meaning representation", Proceedings of EACL, 2017, [pdf]({{ site.url }}/assets/eacl2017.pdf), [slides](/assets/eacl2017_slides.pdf).
 
