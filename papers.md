@@ -3,6 +3,10 @@ layout: default
 title: Publications
 ---
 
+- Marco Damonte, Rahul Goel, Tagyoung Chung, "Practical Semantic Parsing for Spoken Language Understanding", Proceedings of NAACL 2019, [pdf]({{ site.url }}/assets/naaclhlt2019-alexa.pdf).
+
+- Marco Damonte and Shay B. Cohen, "Structural Neural Encoders for AMR-to-text Generation", Proceedings of NAACL 2019, [pdf]({{ site.url }}/assets/naaclhlt2019-gen.pdf).
+
 - Marco Damonte and Shay B. Cohen, "Cross-lingual Abstract Meaning Representation Parsing", Proceedings of NAACL 2018, [pdf]({{ site.url }}/assets/naaclhlt2018-cross.pdf).
 
 - Issa Fuad, Marco Damonte, Shay B. Cohen, Xiaohui Yan and Yi Chang. "Abstract Meaning Representation for Paraphrase Detection.". Proceedings of NAACL 2018, [pdf]({{ site.url }}/assets/naacl18paraphrase.pdf).
@@ -11,6 +15,6 @@ title: Publications
 
 - Ben Krause, Marco Damonte, Mihai Dobre, Daniel Duma, Joachim Fainberg, Federico Fancellu, Emmanuel Kahembwe, Jianpeng Cheng and Bonnie Webber, "Edina: Building an Open Domain Socialbot with Self-dialogues", arXiv preprint arXiv:1709.09816.
 
-- Liepins, Renars, et al. "The SUMMA Platform Prototype.", Proceedings of EACL, 2017.
+- Liepins et al. "The SUMMA Platform Prototype.", Proceedings of EACL, 2017.
 
 {% include lists.html categories=page.Y2016 %}
